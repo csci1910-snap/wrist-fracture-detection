@@ -28,6 +28,9 @@ Everyone follows these, no exceptions.
 
 1. **Never push to `main`.** Every change goes on its own branch and gets merged
    through a pull request (PR). At least one teammate reviews a PR before it is merged.
+   A branch ruleset (`protect-main`) enforces this: GitHub rejects direct pushes and
+   force pushes to `main`, and a PR needs one approval from someone other than its
+   author before it can be merged.
 2. **One issue per task.** Before starting work, open a GitHub issue (or pick an
    existing one) and assign yourself. Name your branch after it, e.g.
    `12-age-baseline`, and write `Closes #12` in the PR description.
