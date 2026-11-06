@@ -14,7 +14,7 @@ Detecting fractures in pediatric wrist X-rays, and checking whether models rely 
 
 - Fahim Ahamed
 - Zahra Khan
-- _Member 3 (add your name here)_
+- Lloyd Empedrado
 
 ## Meeting notes
 
