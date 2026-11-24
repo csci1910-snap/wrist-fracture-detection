@@ -112,6 +112,49 @@ and want to use it, install `torch` and `torchvision` first with the CUDA comman
 The data is not in this repo. See [data/README.md](data/README.md) for download
 links, checksums and the expected folder layout.
 
+## Reproduce the results
+
+One command runs the pipeline from the raw data zip to a saved validation metric.
+
+1. Do the [Setup](#setup) steps and activate the environment.
+2. Download `14825193.zip` into `data/external/` (step 1 in
+   [data/README.md](data/README.md)). This is the only manual step.
+3. From the repo root, run:
+
+   ```bash
+   python src/scripts/run_pipeline.py
+   ```
+
+The script runs these notebooks in order and stops at the first one that fails:
+
+| Step | Notebook | Writes |
+|---|---|---|
+| 1 | `0.1_data-pipeline_fahim` | `data/processed/graz.csv` (split 70/15/15 by `patient_id`, seed 42), cleaned 256x512 images |
+| 2 | `0.2_data-pipeline-localization_fahim` | grid cell targets, cast pairs, location prior, YOLO export |
+| 3 | `1.4_grid-baseline_zahra` | HOG + SIFT features, LR and GB runs in `models/1.4_grid-baseline_zahra/<run>/` |
+| 4 | `1.5_small-cnn-grid_lloyd` | small CNN runs in `models/1.5_small-cnn-grid_lloyd/<run>/` |
+| 5 | `2.1_model-comparison_fahim` | `models/2.1_model-comparison_fahim/val_metrics.csv`, one row per run |
+
+- The result is `models/2.1_model-comparison_fahim/val_metrics.csv`. The script prints it at the end.
+- Executed copies of the notebooks go to `reports/pipeline_run/`, so `notebooks/` is not changed.
+- `1_1_resnet50_features_baseline_zahra`, `1.2_resnet50-features_baseline_lloyd` and
+  `1.3_resnet50-features-clean_fahim` are old baselines, so they are not included.
+- Expected time: about 2 hours for 0.1 to 1.4 on a 22-thread CPU (1.4 features about 40 min,
+  training about 25 min per seed). 1.5 uses a GPU if it finds one: about 70 s per epoch and
+  about 30 min per run. Without a GPU it runs on the CPU, much slower.
+- Disk: about 41 GB for the data (see [data/README.md](data/README.md)), plus a few GB for
+  the YOLO export in 0.2 and the model outputs.
+- The notebooks use the `python3` kernel, which starts the first `python` on your `PATH`.
+  Run the command inside the activated environment.
+
+### Reproducibility run
+
+A teammate who did not write the script ran it from a fresh clone.
+
+| Who | Date | Machine | Run time | Differences from the committed numbers |
+|---|---|---|---|---|
+| Zahra Khan | | | | |
+
 ## Project Organization
 
 ```
