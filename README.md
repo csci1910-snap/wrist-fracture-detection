@@ -153,7 +153,7 @@ A teammate who did not write the script ran it from a fresh clone.
 
 | Who | Date | Machine | Run time | Differences from the committed numbers |
 |---|---|---|---|---|
-| Zahra Khan | | | | |
+| Zahra Khan |Nov 24, 2026 |Mac(macOS) (M4 chip) | 9+ hours (12 PM–9 PM+)| The dataset split counts were the same. There were small differences in 0.2, with the mean number of positive cells changing from 12.4991 to 12.5005 and the fraction of ignored cells changing from 0.0488 to 0.0487. All six baseline runs in 1.4 produced the same results to four decimal places. The  2.1 notebook worked as-well. The results show a CNN validation AUC of 0.951 and a first-box hit rate of 82.2%.|
 
 ## Project Organization
 
